@@ -65,6 +65,8 @@ This component was AI-generated and contains deliberate bugs. Review it, fix all
 - Document each issue in `DECISIONS.md`: what it is, severity, and your fix
 - The fixed component should work correctly with all shipments, including those without a carrier phone number
 
+> **Note:** The component is not mounted in the app by default. Import it in `Dashboard.tsx` and render it with a test shipment to verify your fixes work at runtime.
+
 ---
 
 ### Task 4 — DECISIONS.md _(ongoing)_
