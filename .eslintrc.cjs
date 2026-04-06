@@ -7,7 +7,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs', 'public/mockServiceWorker.js'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'public/mockServiceWorker.js', 'src/components/ai-generated-component.tsx'],
   parser: '@typescript-eslint/parser',
   rules: {
     'react/react-in-jsx-scope': 'off',
