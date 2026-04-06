@@ -311,6 +311,7 @@ const CARRIER_POOL = [
 ];
 
 function pick<T>(arr: readonly T[]): T {
+  if (arr.length === 0) throw new Error('pick() called with empty array');
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
@@ -361,4 +362,4 @@ export const ROUTE_SUGGESTIONS = {
     'Economy batch shipment — combine with next available truck, no rush',
     'Delay acceptable — route to overflow storage pending carrier availability',
   ],
-};
+} as const;
