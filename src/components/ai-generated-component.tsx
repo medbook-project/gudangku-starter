@@ -72,11 +72,10 @@ const ShipmentDetailModal: React.FC<ShipmentDetailModalProps> = ({
   const phone_parts = shipment.carrier.phone.split('-');
   const carrier_phone_formatted = `(${phone_parts[0]}) ${phone_parts[1]}-${phone_parts[2]}`;
 
-  // Unnecessary useMemo — this value is cheap to compute and doesn't need memoization.
-  // Also has wrong deps (empty array), so statusDisplay won't update if status changes.
+  // Memoize the display string to avoid unnecessary recomputation on re-renders
   const statusDisplay = useMemo(
     () => (shipment.status as string).replace(/_/g, ' ').toUpperCase(),
-    [], // should be [shipment.status]
+    [],
   );
 
   const handleResetStatus = () => {
