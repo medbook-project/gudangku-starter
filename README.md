@@ -75,7 +75,7 @@ Fill in `DECISIONS.md` as you work. This is reviewed alongside your code. See th
 
 ---
 
-### Task 5 — Shift Performance Analytics _(Staff+ stretch)_
+### Task 5 — Shift Performance Analytics _(Upper Senior+ stretch)_
 
 Build an analytics view at `/performance` for shift managers.
 
