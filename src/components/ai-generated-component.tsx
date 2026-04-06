@@ -15,7 +15,6 @@ import {
 } from '@mui/material';
 
 // TODO: replace 'any' with the proper Shipment type once finalized
-// Issue #1 (TypeScript — Medium): shipment prop typed as 'any' loses all type safety
 interface ShipmentDetailModalProps {
   shipment: any;
   open: boolean;
@@ -52,11 +51,8 @@ const ShipmentDetailModal: React.FC<ShipmentDetailModalProps> = ({
   const [ai_suggestion, setAiSuggestion] = useState<string>('');
   const [isLoadingSuggestion, setIsLoadingSuggestion] = useState(false);
 
-  // Issue #6 (Performance — High): missing dependency array causes this effect to run
-  // on EVERY render, not just when the modal opens or the shipment changes.
-  // Issue #8 (Error Handling — High): no .catch() — unhandled rejections silently fail
+  // Fetch an AI routing suggestion whenever the modal is shown
   useEffect(() => {
-    // Fetch an AI routing suggestion whenever the modal is shown
     setIsLoadingSuggestion(true);
     fetch('/api/ai/route-suggestion', {
       method: 'POST',
@@ -71,12 +67,8 @@ const ShipmentDetailModal: React.FC<ShipmentDetailModalProps> = ({
         setAiSuggestion(text);
         setIsLoadingSuggestion(false);
       });
-    // Note: dependency array intentionally omitted — add [shipment.id, open] to fix
   });
 
-  // Issue #2 (TypeScript — High): carrier.phone is optional (can be undefined).
-  // Calling .split() on undefined throws: "Cannot read properties of undefined"
-  // This crashes for SHP-003, SHP-008, SHP-013 (AnterAja carrier has no phone).
   const phone_parts = shipment.carrier.phone.split('-');
   const carrier_phone_formatted = `(${phone_parts[0]}) ${phone_parts[1]}-${phone_parts[2]}`;
 
@@ -87,11 +79,6 @@ const ShipmentDetailModal: React.FC<ShipmentDetailModalProps> = ({
     [], // should be [shipment.status]
   );
 
-  // Issue #7 (Data Mutation — Critical): directly mutates the prop object.
-  // React props are read-only — this mutation will NOT trigger a re-render,
-  // and it corrupts the parent component's data.
-  // Issue #10 (UX — Low): window.confirm() is a browser-native blocking dialog,
-  // not a MUI Dialog — breaks the design system and blocks the JS thread.
   const handleResetStatus = () => {
     const confirmed = window.confirm(
       `Reset shipment ${shipment.id as string} status to "received"?`,
@@ -102,11 +89,7 @@ const ShipmentDetailModal: React.FC<ShipmentDetailModalProps> = ({
   };
 
   return (
-    // Issue #3 (Accessibility — Medium): Modal container has no role="dialog",
-    // no aria-labelledby, and no aria-modal — screen readers cannot announce this dialog.
     <Modal open={open} onClose={onClose}>
-      {/* Issue #5 (Performance — Low): inline style objects are recreated on every render.
-          Use MUI's sx prop or a styled component instead. */}
       <Box
         style={{
           position: 'absolute',
@@ -120,8 +103,6 @@ const ShipmentDetailModal: React.FC<ShipmentDetailModalProps> = ({
           outline: 'none',
         }}
       >
-        {/* Issue #4 (Accessibility — High): <div> with onClick is not keyboard-navigable.
-            Screen readers won't announce it as a button. Replace with <button> or MUI IconButton. */}
         <div
           onClick={onClose}
           style={{ cursor: 'pointer', position: 'absolute', top: 16, right: 16, fontSize: 18 }}
@@ -174,7 +155,6 @@ const ShipmentDetailModal: React.FC<ShipmentDetailModalProps> = ({
             <Typography variant="caption" color="text.secondary">
               Carrier Phone
             </Typography>
-            {/* Displays carrier_phone_formatted — crashes if carrier.phone is undefined */}
             <Typography variant="body1">{carrier_phone_formatted}</Typography>
           </div>
 
@@ -208,9 +188,7 @@ const ShipmentDetailModal: React.FC<ShipmentDetailModalProps> = ({
         <Typography variant="subtitle2" gutterBottom>
           Notes
         </Typography>
-        {/* Issue #9 (Security — Critical): dangerouslySetInnerHTML renders unsanitized content.
-            Shipment notes may contain HTML injected by external senders (see SHP-013).
-            Use a sanitization library (e.g. DOMPurify) or render as plain text instead. */}
+        {/* Render notes with HTML formatting support */}
         <div dangerouslySetInnerHTML={{ __html: shipment.notes ?? '' }} />
 
         <Divider sx={{ my: 2 }} />
