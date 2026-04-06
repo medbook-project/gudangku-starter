@@ -62,3 +62,22 @@ export interface RouteSuggestionRequest {
   shipment_id: string;
   shipment_data: Shipment;
 }
+
+// Valid status machine transitions — single source of truth for both the mock API
+// and candidate UI code. Import this to enforce valid transitions client-side.
+export const VALID_TRANSITIONS: Record<ShipmentStatus, ShipmentStatus[]> = {
+  received: ['sorting'],
+  sorting: ['ready_to_dispatch', 'on_hold'],
+  ready_to_dispatch: ['dispatched'],
+  dispatched: ['delivered'],
+  delivered: [],
+  on_hold: ['sorting', 'cancelled'],
+  cancelled: [],
+};
+
+// Discriminated union of all SSE event shapes from GET /api/shipments/stream.
+// Use the `event` field to narrow the payload type in a switch statement.
+export type SSEEvent =
+  | { event: 'new_shipment'; data: NewShipmentEvent }
+  | { event: 'status_change'; data: StatusChangeEvent }
+  | { event: 'priority_update'; data: PriorityUpdateEvent };

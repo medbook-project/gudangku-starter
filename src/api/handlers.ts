@@ -1,24 +1,12 @@
 import { http, HttpResponse, delay } from 'msw';
 import type { Shipment, ShipmentStatus, Priority } from './types';
 import type { StatusChangeEvent, PriorityUpdateEvent } from './types';
+import { VALID_TRANSITIONS } from './types';
 import { seedShipments, createNewShipment, ROUTE_SUGGESTIONS } from './mock-data';
 
 // ─── In-memory store ─────────────────────────────────────────────────────────
 // Seeded once at module load; mutations persist within a browser session.
 const shipments: Shipment[] = [...seedShipments];
-
-// ─── Status machine ───────────────────────────────────────────────────────────
-// Map of current status → allowed next statuses.
-// Empty array = terminal state (no further transitions allowed).
-const STATUS_MACHINE: Map<ShipmentStatus, ShipmentStatus[]> = new Map([
-  ['received', ['sorting']],
-  ['sorting', ['ready_to_dispatch', 'on_hold']],
-  ['ready_to_dispatch', ['dispatched']],
-  ['dispatched', ['delivered']],
-  ['delivered', []],
-  ['on_hold', ['sorting', 'cancelled']],
-  ['cancelled', []],
-]);
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -41,7 +29,7 @@ function generateSSEEvent(): { type: string; data: unknown } | null {
   } else if (roll < 0.7) {
     // status_change — 50%
     const target = nonTerminal[Math.floor(Math.random() * nonTerminal.length)];
-    const transitions = STATUS_MACHINE.get(target.status) ?? [];
+    const transitions = VALID_TRANSITIONS[target.status] ?? [];
     if (transitions.length === 0) return null;
     const nextStatus = transitions[0]; // advance to first valid next state
     const idx = shipments.findIndex((s) => s.id === target.id);
@@ -107,7 +95,7 @@ export const handlers = [
     }
 
     const shipment = shipments[idx];
-    const validTransitions = STATUS_MACHINE.get(shipment.status) ?? [];
+    const validTransitions = VALID_TRANSITIONS[shipment.status] ?? [];
 
     if (!validTransitions.includes(body.status)) {
       return HttpResponse.json(
