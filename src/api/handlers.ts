@@ -187,10 +187,7 @@ export const handlers = [
     }
 
     const useContradiction = Math.random() < 0.3;
-    // Array.from converts readonly string[] to mutable string[] for indexing
-    const pool: string[] = useContradiction
-      ? Array.from(ROUTE_SUGGESTIONS.contradiction)
-      : Array.from(ROUTE_SUGGESTIONS.normal);
+    const pool = useContradiction ? ROUTE_SUGGESTIONS.contradiction : ROUTE_SUGGESTIONS.normal;
     const suggestion = pool[Math.floor(Math.random() * pool.length)];
     const words = suggestion.split(' ');
 
