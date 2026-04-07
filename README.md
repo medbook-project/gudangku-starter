@@ -2,7 +2,10 @@
 
 A take-home assessment for senior frontend engineers. You have **4 hours maximum**.
 
+**Time tracking**
 > We analyze commit timestamps. Build incrementally — commit often. Make your first commit when you start working (even if it's just a placeholder).Your last commit should be within 4 hours of your first. We review commit timestamps to verify the time limit.
+**Decision.md (Task 4)**
+> Take a look at Decision.md which contain the template with section headers and guidance comments, and fill it in as you work. Think of it like an engineering journal — document what AI tool you used for what, why you chose a particular architecture, how you handled the ambiguous requirement, etc.
 
 ## Overview
 
