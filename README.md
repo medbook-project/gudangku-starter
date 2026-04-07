@@ -1,8 +1,8 @@
 # GudangKu — Warehouse Shipment Tracker
 
-A take-home assessment for senior/Staff+ frontend engineers. You have **4 hours maximum**.
+A take-home assessment for senior frontend engineers. You have **4 hours maximum**.
 
-> We analyze commit timestamps. Build incrementally — commit often.
+> We analyze commit timestamps. Build incrementally — commit often. Make your first commit when you start working (even if it's just a placeholder).Your last commit should be within 4 hours of your first. We review commit timestamps to verify the time limit.
 
 ## Overview
 
