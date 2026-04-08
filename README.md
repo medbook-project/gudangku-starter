@@ -234,7 +234,7 @@ Terminal states: `delivered`, `cancelled` — no further transitions.
 ## Submission
 
 1. Push your work to a **private** GitHub repository
-2. Add `hiring@example.com` as a collaborator
+2. Add `anando.micheal@gmail.com` as a collaborator
 3. Submit the repository URL via the assessment portal
 
 **Time limit:** Maximum 4 hours. Tasks 1–4 are the senior bar. Task 5 is Staff+ stretch — attempt only if time remains.
