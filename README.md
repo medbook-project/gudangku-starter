@@ -1,9 +1,9 @@
 # GudangKu — Warehouse Shipment Tracker
 
-A take-home assessment for senior frontend engineers. You have **4 hours maximum**.
+A take-home assessment for senior frontend engineers. You have **1 hour maximum**.
 
 **Time tracking**
-> We analyze commit timestamps. Build incrementally — commit often. Make your first commit when you start working (even if it's just a placeholder).Your last commit should be within 4 hours of your first. We review commit timestamps to verify the time limit.
+> We analyze commit timestamps. Build incrementally — commit often. Make your first commit when you start working (even if it's just a placeholder).Your last commit should be within 1 hour of your first. We review commit timestamps to verify the time limit.
 
 **Decision.md (Task 4)**
 > Take a look at Decision.md which contain the template with section headers and guidance comments, and fill it in as you work. Think of it like an engineering journal — document what AI tool you used for what, why you chose a particular architecture, how you handled the ambiguous requirement, etc.
@@ -234,8 +234,6 @@ Terminal states: `delivered`, `cancelled` — no further transitions.
 
 ## Submission
 
-1. Push your work to a **private** GitHub repository
-2. Add `anando.micheal@gmail.com` as a collaborator
-3. Submit the repository URL via the assessment portal
+Once done, email admin@bukumed.com of your completion. 
 
-**Time limit:** Maximum 4 hours. Tasks 1–4 are the senior bar. Task 5 is Staff+ stretch — attempt only if time remains.
+**Time limit:** Maximum 1 hours. Tasks 1–4 are the senior bar. Task 5 is Upper Senior stretch — attempt only if time remains.
